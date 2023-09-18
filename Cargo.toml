@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["Caleb Leinz <caleb.leinz@atlasspace.com>"]
 description = "Models for the Freedom API"
 readme = "README.md"
-repository = "https://git-codecommit.us-west-2.amazonaws.com/v1/repos/rust.freedom.api"
+repository = "https://git-codecommit.us-west-2.amazonaws.com/v1/repos/rust.freedom.models"
 publish = ["atlasspace-rust"]
 
 [dependencies]
