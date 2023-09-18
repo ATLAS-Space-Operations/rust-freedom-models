@@ -1,0 +1,27 @@
+[package]
+name = "freedom-models"
+version = "0.1.2"
+edition = "2021"
+authors = ["Caleb Leinz <caleb.leinz@atlasspace.com>"]
+description = "Models for the Freedom API"
+readme = "README.md"
+repository = "https://github.com/ATLAS-Space-Operations/rust-freedom-models"
+
+[dependencies]
+cidr = { version = "0.2.2" }
+strum = { version = "0.25.0", features = ["derive"] }
+thiserror = { version = "1.0.56" }
+time = { version = "0.3.36", features = ["serde-human-readable", "macros"] }
+url = { version = "2.5.0" }
+
+# Optional dependencies
+derivative = { version = "2.2.0", optional = true }
+serde = { version = "1.0.195", features = ["derive"], optional = true }
+serde_with = { version = "3.3.0", optional = true }
+
+[dev-dependencies]
+serde_json = { version = "1.0.111" }
+
+[features]
+serde = ["dep:serde", "dep:serde_with", "url/serde", "cidr/serde"]
+hash = ["dep:derivative"]
