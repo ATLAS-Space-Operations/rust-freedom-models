@@ -1,9 +1,19 @@
 use std::collections::HashMap;
 
-use serde::{de::DeserializeOwned, Deserialize};
+use serde::{de::DeserializeOwned, Deserialize, Deserializer};
 use url::Url;
 
 use crate::Hateoas;
+
+pub fn flatten_deserialize<'de, D, T>(deserializer: D) -> Result<Vec<T>, D::Error>
+where
+    D: Deserializer<'de> + 'de,
+    T: DeserializeOwned,
+{
+    let vec_of_results: Vec<Result<T, String>> = Vec::deserialize(deserializer)?;
+
+    Ok(vec_of_results.into_iter().flatten().collect())
+}
 
 #[derive(Debug, Clone, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -60,14 +70,14 @@ pub(crate) mod content {
             pub links: HashMap<String, url::Url>,
         }
 
-        pub(crate) fn deserialize<'de, D, T>(deserailizer: D) -> Result<T, D::Error>
+        pub(crate) fn deserialize<'de, D, T>(deserializer: D) -> Result<T, D::Error>
         where
             D: Deserializer<'de>,
             T: DeserializeOwned + Hateoas,
         {
             use serde::de::Error;
 
-            let mut item_map: ContentInitial<T> = ContentInitial::<T>::deserialize(deserailizer)
+            let mut item_map: ContentInitial<T> = ContentInitial::<T>::deserialize(deserializer)
                 .map_err(|e| Error::custom(format!("Failed to deserialize initial: {e}")))?;
 
             *(item_map.inner.get_links_mut()) = item_map.links;
@@ -90,13 +100,13 @@ pub(crate) mod links {
             href: Url,
         }
 
-        pub(crate) fn deserialize<'de, D>(deserailizer: D) -> Result<HashMap<String, Url>, D::Error>
+        pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<HashMap<String, Url>, D::Error>
         where
             D: Deserializer<'de>,
         {
             use std::collections::hash_map::RandomState;
 
-            let link_map: HashMap<String, Link, RandomState> = HashMap::deserialize(deserailizer)?;
+            let link_map: HashMap<String, Link, RandomState> = HashMap::deserialize(deserializer)?;
 
             Ok(link_map
                 .into_iter()
@@ -130,7 +140,7 @@ pub(crate) mod destructure {
 
         use serde::{de::DeserializeOwned, Deserialize, Deserializer};
 
-        pub(crate) fn deserialize<'de, D, T>(deserailizer: D) -> Result<T, D::Error>
+        pub(crate) fn deserialize<'de, D, T>(deserializer: D) -> Result<T, D::Error>
         where
             D: Deserializer<'de>,
             T: DeserializeOwned,
@@ -138,7 +148,7 @@ pub(crate) mod destructure {
             use serde::de::Error;
             use std::collections::hash_map::RandomState;
 
-            let item_map: HashMap<String, T, RandomState> = HashMap::deserialize(deserailizer)?;
+            let item_map: HashMap<String, T, RandomState> = HashMap::deserialize(deserializer)?;
 
             item_map
                 .into_iter()

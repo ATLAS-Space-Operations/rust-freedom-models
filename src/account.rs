@@ -2,6 +2,8 @@ use crate::Hateoas;
 use cidr::Ipv4Cidr;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "serde")]
+use serde_with::serde_as;
 use std::collections::HashMap;
 use time::OffsetDateTime;
 use url::Url;
@@ -56,6 +58,7 @@ impl Hateoas for Tier {
 
 #[cfg_attr(
     feature = "serde",
+    serde_as,
     derive(Serialize, Deserialize),
     serde(rename_all = "camelCase")
 )]
@@ -81,8 +84,10 @@ pub struct Account {
     pub weeks_of_data_storage: u32,
     pub verified: bool,
     #[cfg_attr(feature = "serde", serde(default))]
+    #[cfg_attr(feature = "serde", serde_as(as = "VecSkipError<_>"))]
     pub access_realtime_cidr: Vec<AccountCidr>,
     #[cfg_attr(feature = "serde", serde(default))]
+    #[cfg_attr(feature = "serde", serde_as(as = "VecSkipError<_>"))]
     pub access_api_cidr: Vec<AccountCidr>,
     #[cfg_attr(feature = "serde", serde(default))]
     pub external_id: Option<String>,

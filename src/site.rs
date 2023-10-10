@@ -3,7 +3,6 @@ use derivative::Derivative;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::net::Ipv4Addr;
 use time::OffsetDateTime;
 use url::Url;
 
@@ -23,7 +22,7 @@ use super::utils;
 pub struct SiteHardware {
     pub manual: bool,
     #[cfg_attr(feature = "serde", serde(default))]
-    pub ip: Option<Ipv4Addr>,
+    pub ip: Option<String>,
     pub name: String,
     #[cfg_attr(feature = "serde", serde(default))]
     pub specifications: Option<String>,
