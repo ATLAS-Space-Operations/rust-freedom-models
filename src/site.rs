@@ -129,7 +129,7 @@ impl Hateoas for SiteConfiguration {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "serde"))]
 mod tests {
     use super::*;
 
