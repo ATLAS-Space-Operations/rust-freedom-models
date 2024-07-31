@@ -1,5 +1,3 @@
-#[cfg(feature = "hash")]
-use derivative::Derivative;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -17,7 +15,6 @@ use super::utils;
     derive(Serialize, Deserialize),
     serde(rename_all = "camelCase")
 )]
-#[cfg_attr(feature = "hash", derive(Derivative), derivative(Hash))]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SiteHardware {
     pub manual: bool,
@@ -41,7 +38,6 @@ pub struct SiteHardware {
     pub typ: Option<String>,
     #[cfg_attr(feature = "serde", serde(default))]
     pub port_comms: Option<u16>,
-    #[cfg_attr(feature = "hash", derivative(Hash = "ignore"))]
     #[cfg_attr(feature = "serde", serde(default))]
     pub properties: Option<HashMap<String, String>>,
 }
