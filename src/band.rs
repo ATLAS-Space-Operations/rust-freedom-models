@@ -43,12 +43,12 @@ pub enum IoHardware {
 #[derive(Debug, Clone, PartialEq)]
 pub struct IoConfiguration {
     #[cfg_attr(feature = "serde", serde(default))]
-    start_hex_pattern: Option<String>,
+    pub start_hex_pattern: Option<String>,
     #[cfg_attr(feature = "serde", serde(default))]
-    end_hex_pattern: Option<String>,
-    strip_pattern: bool,
+    pub end_hex_pattern: Option<String>,
+    pub strip_pattern: bool,
     #[cfg_attr(feature = "serde", serde(default))]
-    io_hardware: Option<IoHardware>,
+    pub io_hardware: Option<IoHardware>,
 }
 
 #[cfg_attr(
