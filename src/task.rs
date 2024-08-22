@@ -76,6 +76,21 @@ impl Ord for TaskStatus {
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
+#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
+#[strum(serialize_all = "mixed_case")]
+pub enum Polarization {
+    #[default]
+    Right,
+    Left,
+    Vertical,
+    Horizontal,
+}
+
+#[cfg_attr(
+    feature = "serde",
+    derive(Serialize, Deserialize),
+    serde(rename_all = "SCREAMING_SNAKE_CASE")
+)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
 #[strum(serialize_all = "mixed_case")]
 pub enum TaskType {
