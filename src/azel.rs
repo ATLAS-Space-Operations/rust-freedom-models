@@ -9,9 +9,9 @@ use time::OffsetDateTime;
 )]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Location {
-    longitude: f64,
-    latitude: f64,
-    elevation: f64,
+    pub longitude: f64,
+    pub latitude: f64,
+    pub elevation: f64,
 }
 
 #[cfg_attr(
@@ -22,9 +22,9 @@ pub struct Location {
 #[derive(Debug, Clone, PartialEq)]
 pub struct Direction {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
-    timestamp: OffsetDateTime,
-    az: f64,
-    el: f64,
+    pub timestamp: OffsetDateTime,
+    pub az: f64,
+    pub el: f64,
 }
 
 #[cfg_attr(
