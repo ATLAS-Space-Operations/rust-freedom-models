@@ -17,6 +17,7 @@ use super::utils;
 )]
 #[derive(Debug, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
 #[strum(serialize_all = "mixed_case")]
+#[non_exhaustive]
 pub enum TaskStatusType {
     Received,
     Pending,
@@ -78,6 +79,7 @@ impl Ord for TaskStatus {
 )]
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
 #[strum(serialize_all = "mixed_case")]
+#[non_exhaustive]
 pub enum Polarization {
     #[default]
     Right,
@@ -93,6 +95,7 @@ pub enum Polarization {
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
 #[strum(serialize_all = "mixed_case")]
+#[non_exhaustive]
 pub enum TaskType {
     Before,
     After,

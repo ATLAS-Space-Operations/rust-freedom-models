@@ -15,6 +15,7 @@ use super::utils;
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[non_exhaustive]
 pub enum BandType {
     Transmit,
     Receive,
@@ -26,6 +27,7 @@ pub enum BandType {
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum IoHardware {
     Modem,
     Fep,
