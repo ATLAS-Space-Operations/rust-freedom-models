@@ -14,7 +14,7 @@ use super::utils;
     derive(Serialize, Deserialize),
     serde(rename_all = "camelCase")
 )]
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TwoLineElement {
     pub line1: String,
     pub line2: String,

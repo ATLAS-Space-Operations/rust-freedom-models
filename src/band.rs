@@ -14,7 +14,7 @@ use super::utils;
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[non_exhaustive]
 pub enum BandType {
     Transmit,
@@ -26,7 +26,7 @@ pub enum BandType {
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[non_exhaustive]
 pub enum IoHardware {
     Modem,
@@ -42,7 +42,7 @@ pub enum IoHardware {
     derive(Serialize, Deserialize),
     serde(rename_all = "camelCase")
 )]
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IoConfiguration {
     #[cfg_attr(feature = "serde", serde(default))]
     pub start_hex_pattern: Option<String>,

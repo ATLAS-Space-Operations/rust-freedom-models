@@ -19,7 +19,7 @@ use super::utils;
     derive(Serialize, Deserialize),
     serde(rename_all = "camelCase")
 )]
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccountCidr {
     pub name: String,
     pub cidr: Ipv4Cidr,

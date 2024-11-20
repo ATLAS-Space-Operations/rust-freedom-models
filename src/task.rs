@@ -15,7 +15,7 @@ use super::utils;
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Debug, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
 #[strum(serialize_all = "mixed_case")]
 #[non_exhaustive]
 pub enum TaskStatusType {
@@ -52,7 +52,7 @@ pub enum TaskStatusType {
     derive(Serialize, Deserialize),
     serde(rename_all = "camelCase")
 )]
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TaskStatus {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,
@@ -60,24 +60,14 @@ pub struct TaskStatus {
     pub reason: String,
 }
 
-impl PartialOrd for TaskStatus {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for TaskStatus {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        self.created.cmp(&other.created)
-    }
-}
-
 #[cfg_attr(
     feature = "serde",
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
+#[derive(
+    Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString,
+)]
 #[strum(serialize_all = "mixed_case")]
 #[non_exhaustive]
 pub enum Polarization {
@@ -93,7 +83,7 @@ pub enum Polarization {
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Debug, Copy, Clone, PartialEq, Eq, AsRefStr, EnumString, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
 #[strum(serialize_all = "mixed_case")]
 #[non_exhaustive]
 pub enum TaskType {
