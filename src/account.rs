@@ -110,3 +110,51 @@ impl Hateoas for Account {
         &mut self.links
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::net::Ipv4Addr;
+
+    use super::*;
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn ip_cidr_deserialize() {
+        let json = serde_json::json!({
+            "name": "Test Account",
+            "cidr": "192.168.1.96/28"
+        });
+
+        let cidr: AccountCidr = serde_json::from_value(json).unwrap();
+        assert_eq!(cidr.name, "Test Account");
+        assert_eq!(
+            cidr.cidr,
+            Ipv4Net::new_assert(Ipv4Addr::new(192, 168, 1, 96), 28)
+        );
+    }
+
+    #[test]
+    fn ip_cidr_check_28() {
+        let cidr = AccountCidr {
+            name: "Test".into(),
+            cidr: Ipv4Net::new_assert(Ipv4Addr::new(192, 168, 1, 96), 28),
+        };
+
+        assert!(cidr.contains(&Ipv4Addr::new(192, 168, 1, 99)));
+        assert!(cidr.contains(&Ipv4Addr::new(192, 168, 1, 97)));
+        assert!(!cidr.contains(&Ipv4Addr::new(192, 168, 0, 99)));
+    }
+
+    #[test]
+    fn ip_cidr_check_32() {
+        let cidr = AccountCidr {
+            name: "Test".into(),
+            cidr: Ipv4Net::new_assert(Ipv4Addr::new(192, 168, 1, 96), 32),
+        };
+
+        assert!(cidr.contains(&Ipv4Addr::new(192, 168, 1, 96)));
+        assert!(!cidr.contains(&Ipv4Addr::new(192, 168, 1, 97)));
+        assert!(!cidr.contains(&Ipv4Addr::new(192, 168, 1, 95)));
+        assert!(!cidr.contains(&Ipv4Addr::new(0, 0, 0, 0)));
+    }
+}
