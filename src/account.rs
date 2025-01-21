@@ -1,5 +1,5 @@
 use crate::Hateoas;
-use cidr::Ipv4Cidr;
+use ipnet::Ipv4Net;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 #[cfg(feature = "serde")]
@@ -22,11 +22,11 @@ use super::utils;
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccountCidr {
     pub name: String,
-    pub cidr: Ipv4Cidr,
+    pub cidr: Ipv4Net,
 }
 
 impl std::ops::Deref for AccountCidr {
-    type Target = Ipv4Cidr;
+    type Target = Ipv4Net;
 
     fn deref(&self) -> &Self::Target {
         &self.cidr
