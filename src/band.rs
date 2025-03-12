@@ -1,6 +1,7 @@
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use strum::{AsRefStr, EnumString};
 use time::OffsetDateTime;
 use url::Url;
 
@@ -14,7 +15,8 @@ use super::utils;
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
+#[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 #[non_exhaustive]
 pub enum BandType {
     Transmit,
@@ -26,13 +28,15 @@ pub enum BandType {
     derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
+#[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 #[non_exhaustive]
 pub enum IoHardware {
     Modem,
     Fep,
     Cortex,
     Recorder,
+    #[strum(default)]
     #[cfg_attr(feature = "serde", serde(untagged))]
     Other(String),
 }

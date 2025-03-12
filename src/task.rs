@@ -16,7 +16,7 @@ use super::utils;
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
-#[strum(serialize_all = "mixed_case")]
+#[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 #[non_exhaustive]
 pub enum TaskStatusType {
     Received,
@@ -68,7 +68,7 @@ pub struct TaskStatus {
 #[derive(
     Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString,
 )]
-#[strum(serialize_all = "mixed_case")]
+#[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 #[non_exhaustive]
 pub enum Polarization {
     #[default]
@@ -84,7 +84,7 @@ pub enum Polarization {
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
-#[strum(serialize_all = "mixed_case")]
+#[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 #[non_exhaustive]
 pub enum TaskType {
     Before,
