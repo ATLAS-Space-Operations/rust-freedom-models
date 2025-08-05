@@ -1,9 +1,11 @@
 use std::collections::HashMap;
 
-use serde::{de::DeserializeOwned, Deserialize, Deserializer};
+use serde::{Deserialize, Deserializer, de::DeserializeOwned};
 use url::Url;
 
 use crate::Hateoas;
+
+pub(crate) mod timestamp;
 
 pub fn flatten_deserialize<'de, D, T>(deserializer: D) -> Result<Vec<T>, D::Error>
 where
@@ -56,7 +58,7 @@ pub(crate) mod content {
     pub(crate) mod serde {
         use std::collections::HashMap;
 
-        use serde::{de::DeserializeOwned, Deserialize, Deserializer};
+        use serde::{Deserialize, Deserializer, de::DeserializeOwned};
 
         use crate::Hateoas;
 
@@ -138,7 +140,7 @@ pub(crate) mod destructure {
     pub(crate) mod serde {
         use std::collections::HashMap;
 
-        use serde::{de::DeserializeOwned, Deserialize, Deserializer};
+        use serde::{Deserialize, Deserializer, de::DeserializeOwned};
 
         pub(crate) fn deserialize<'de, D, T>(deserializer: D) -> Result<T, D::Error>
         where
@@ -163,7 +165,7 @@ pub(crate) mod destructure {
 
 #[cfg(test)]
 mod test {
-    use ::time::{format_description::well_known::Iso8601, OffsetDateTime, PrimitiveDateTime};
+    use ::time::{OffsetDateTime, PrimitiveDateTime, format_description::well_known::Iso8601};
 
     #[test]
     fn time_deserialization() {

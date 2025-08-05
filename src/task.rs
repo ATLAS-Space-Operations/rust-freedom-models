@@ -54,7 +54,7 @@ pub enum TaskStatusType {
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TaskStatus {
-    #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
+    #[cfg_attr(feature = "serde", serde(with = "crate::utils::timestamp"))]
     pub created: OffsetDateTime,
     pub status: TaskStatusType,
     pub reason: String,
@@ -159,6 +159,26 @@ impl Hateoas for Task {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TaskStatusEvent {
+    pub task_request_id: i32,
+    pub task_request_uri: String,
+    pub status_changes: Vec<TaskStatus>,
+}
+
+impl TaskStatusEvent {
+    pub fn latest_status(&self) -> Option<&TaskStatus> {
+        self.status_changes
+            .iter()
+            .max_by_key(|status| status.created)
+    }
+}
+
+#[cfg_attr(
+    feature = "serde",
+    derive(Serialize, Deserialize),
+    serde(rename_all = "camelCase")
+)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TaskRequest {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,
@@ -207,5 +227,66 @@ impl Hateoas for TaskRequest {
 
     fn get_links_mut(&mut self) -> &mut HashMap<String, url::Url> {
         &mut self.links
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[cfg(feature = "serde")]
+    fn task_status_event() {
+        let json = r#"
+{
+  "taskRequestId": 189348,
+  "taskRequestUri": "https://test-api.atlasground.com/api/requests/189348",
+  "statusChanges": [
+    {
+      "created": "2025-08-01T19:55:07.061Z",
+      "status": "RECEIVED",
+      "reason": "Saved to Database and awaiting scheduling"
+    },
+    {
+      "created": "2025-08-01T19:55:07.674Z",
+      "status": "SCHEDULED",
+      "reason": "Test Task Scheduled"
+    },
+    {
+      "created": "2025-08-01T19:55:08.986Z",
+      "status": "QUEUED_PASS",
+      "reason": "Pass has been queued to execute"
+    }
+  ]
+}"#;
+        let event: TaskStatusEvent = serde_json::from_str(json).unwrap();
+        assert_eq!(
+            event.latest_status().unwrap().status,
+            TaskStatusType::QueuedPass
+        );
+    }
+
+    #[test]
+    #[cfg(feature = "serde")]
+    fn task_status_event_float_timestamp() {
+        use time::macros::datetime;
+
+        let json = r#"
+{
+  "taskRequestId": 190029,
+  "taskRequestUri": "https://test-api.atlasground.com/api/requests/190029",
+  "statusChanges": [
+    {
+      "created": 1754409946.362000000,
+      "status": "RECEIVED",
+      "reason": "Saved to Database and awaiting scheduling"
+    }
+  ]
+}"#;
+        let event: TaskStatusEvent = serde_json::from_str(json).unwrap();
+        assert_eq!(
+            datetime!(2025 - 08 - 05 16:05:46.361_999_989).assume_utc(),
+            event.status_changes[0].created
+        );
     }
 }
