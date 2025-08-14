@@ -9,6 +9,7 @@ pub mod pagination;
 pub mod satellite;
 pub mod satellite_configuration;
 pub mod site;
+pub mod status;
 pub mod task;
 pub mod user;
 #[cfg(feature = "serde")]
