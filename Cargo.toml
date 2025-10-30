@@ -24,3 +24,4 @@ serde_json = { version = "1.0.111" }
 
 [features]
 serde = ["dep:serde", "dep:serde_with", "url/serde", "ipnet/json"]
+bundles = []

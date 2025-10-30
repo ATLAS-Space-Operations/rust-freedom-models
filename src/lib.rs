@@ -3,6 +3,8 @@
 pub mod account;
 pub mod azel;
 pub mod band;
+#[cfg(feature = "bundles")]
+pub mod bundle;
 pub mod error;
 #[cfg(feature = "serde")]
 pub mod pagination;
