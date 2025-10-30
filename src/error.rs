@@ -1,20 +1,30 @@
 #[cfg(feature = "serde")]
 use serde::Deserialize;
-use thiserror::Error;
 
 #[cfg_attr(
     feature = "serde",
     derive(Deserialize),
     serde(rename_all = "camelCase")
 )]
-#[derive(Debug, Clone, Error, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Error {
-    #[error("An item within the inner paginated structure failed to deserialize")]
     PaginatedInner,
-
-    #[error("The inner list of paginated elements is missing")]
     PaginatedListMissing,
-
-    #[error("The link map failed to deserialize: {0}")]
     Link(String),
 }
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Error::PaginatedInner => {
+                f.write_str("An item within the inner paginated structure failed to deserialize")
+            }
+            Error::PaginatedListMissing => {
+                f.write_str("The inner list of paginated elements is missing")
+            }
+            Error::Link(inner) => write!(f, "The link map failed to deserialize: {inner}"),
+        }
+    }
+}
+
+impl core::error::Error for Error {}
