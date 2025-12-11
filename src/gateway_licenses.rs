@@ -40,8 +40,9 @@ pub struct Verify {
 pub struct VerifyResponse {
     pub valid: bool,
     pub license_id: u32,
-    #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
-    pub expires_at: OffsetDateTime,
+    #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601::option"))]
+    pub expires_at: Option<OffsetDateTime>,
+    pub reason: Option<String>,
 }
 
 /// Response body viewing the list of licenses associated with your account
@@ -188,7 +189,8 @@ mod tests {
         let should_be = VerifyResponse {
             valid: true,
             license_id: 1,
-            expires_at: datetime!(2025 - 12 - 11 00:00:00).assume_utc(),
+            expires_at: Some(datetime!(2025 - 12 - 11 00:00:00).assume_utc()),
+            reason: None,
         };
         assert_eq!(verify, should_be);
     }
