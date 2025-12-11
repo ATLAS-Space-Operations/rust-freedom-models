@@ -230,7 +230,7 @@ impl Hateoas for TaskRequest {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "serde"))]
 mod tests {
     use super::*;
 
