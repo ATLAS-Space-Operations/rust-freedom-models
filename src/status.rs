@@ -78,7 +78,7 @@ pub enum Value {
     String(String),
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "serde"))]
 mod tests {
     use super::*;
 

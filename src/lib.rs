@@ -4,6 +4,7 @@ pub mod account;
 pub mod azel;
 pub mod band;
 pub mod error;
+pub mod gateway_licenses;
 #[cfg(feature = "serde")]
 pub mod pagination;
 pub mod satellite;
