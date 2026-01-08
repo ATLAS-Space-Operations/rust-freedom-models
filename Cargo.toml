@@ -24,4 +24,3 @@ time = { version = "0.3.36", features = ["macros"] }
 
 [features]
 serde = ["dep:serde", "dep:serde_with", "url/serde", "ipnet/json", "time/serde-human-readable"]
-bundles = []
