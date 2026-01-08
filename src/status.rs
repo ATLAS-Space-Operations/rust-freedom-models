@@ -45,7 +45,7 @@ pub struct HardwareMetric {
     pub model: Option<String>,
     #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub hw_type: String,
-    pub metrics: Vec<Value>,
+    pub metrics: Vec<ValueMetric>,
 }
 
 #[cfg_attr(
@@ -58,9 +58,9 @@ pub struct HardwareMetric {
 pub struct ValueMetric {
     #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub type_string: String,
+    #[cfg_attr(feature = "serde", serde(flatten))]
     pub value: Value,
     pub unit: String,
-    pub value_type: String,
 }
 
 #[cfg_attr(
@@ -85,72 +85,88 @@ mod tests {
     #[test]
     fn deserialize() {
         let json_value = r#"{
-     "site":
-     {
-         "taskId":78939,
-         "taskRequestUri":"https://test-api.atlasground.com/api/requests/78939",
-         "name":"AIB1",
-         "configuration":"AIB1-000A",
-         "siteUri":"https://test-api.atlasground.com/api/sites/27",
-         "configUri":"https://test-api.atlasground.com/api/configurations/35",
-         "collected":1648733340.076000000,
-         "hardwareMetrics":
-         [
-             {
-                 "name":"aib1_000a.modem.amergint_technologies.0",
-                 "mfg":"Amergint Technologies",
-                 "model":"satTRAC",
-                 "type":"MODEM",
-                 "metrics":
-                 [
-                     {
-                         "type":"site.hardware.modem.status",
-                         "value":true,
-                         "unit":"bool",
-                         "valueType":"bool"
-                     }
-                 ]
-             },
-             {
-                 "name":"aib1_000a.digitizer.real_time_logic.0",
-                 "mfg":"Real Time Logic",
-                 "model":"1.7.4",
-                 "type":"DIGITIZER",
-                 "metrics":
-                 [
-                     {
-                         "type":"site.hardware.digitizer.status",
-                         "value":true,
-                         "unit":"bool",
-                         "valueType":"bool"
-                     }
-                 ]
-             },
-             {
-                 "name":"Site Server",
-                 "mfg":"ATLAS",
-                 "model":"1.6.1",
-                 "type":"SUM",
-                 "metrics":
-                 [
-                     {
-                         "type":"site.hardware.status",
-                         "value":true,
-                         "unit":"bool",
-                         "valueType":"bool"
-                     },
-                     {
-                         "type":"site.hardware.pass.timing",
-                         "value":3467,
-                         "unit":"s",
-                         "valueType":"long"
-                     }
-                 ]
-             }
-         ]
-     }
- }"#;
+  "site": {
+    "taskId": 1,
+    "taskRequestUri": "https://test-api.atlasground.com/api/requests/1",
+    "name": "MySite",
+    "configuration": "MySite-000A",
+    "siteUri": "https://test-api.atlasground.com/api/sites/1",
+    "configUri": "https://test-api.atlasground.com/api/configurations/1",
+    "collected": 1648733340.076,
+    "hardwareMetrics": [
+      {
+        "name": "test-hardware",
+        "mfg": "Tech",
+        "model": "1.x.x",
+        "type": "MODEM",
+        "metrics": [
+          {
+            "type": "site.hardware.modem.status",
+            "value": true,
+            "unit": "bool",
+            "valueType": "bool"
+          }
+        ]
+      },
+      {
+        "name": "test-hardware",
+        "mfg": "Tech",
+        "model": "1.x.x",
+        "type": "DIGITIZER",
+        "metrics": [
+          {
+            "type": "site.hardware.digitizer.status",
+            "value": true,
+            "unit": "bool",
+            "valueType": "bool"
+          }
+        ]
+      },
+      {
+        "name": "Site Server",
+        "mfg": "ATLAS",
+        "model": "1.x.x",
+        "type": "SUM",
+        "metrics": [
+          {
+            "type": "site.hardware.status",
+            "value": true,
+            "unit": "bool",
+            "valueType": "bool"
+          },
+          {
+            "type": "site.hardware.pass.timing",
+            "value": 3467,
+            "unit": "s",
+            "valueType": "long"
+          }
+        ]
+      }
+    ]
+  }
+}"#;
 
-        let _ser: PassMetric = serde_json::from_slice(json_value.as_bytes()).unwrap();
+        let ser: PassMetric = serde_json::from_slice(json_value.as_bytes()).unwrap();
+        let first = &ser.site.hardware_metrics[0].metrics[0];
+        assert_eq!(first.type_string.as_str(), "site.hardware.modem.status");
+        assert_eq!(&first.value, &Value::Bool(true));
+        let second = &ser.site.hardware_metrics[1].metrics[0];
+        assert_eq!(
+            second.type_string.as_str(),
+            "site.hardware.digitizer.status"
+        );
+        assert_eq!(&second.value, &Value::Bool(true));
+        let second = &ser.site.hardware_metrics[1].metrics[0];
+        assert_eq!(
+            second.type_string.as_str(),
+            "site.hardware.digitizer.status"
+        );
+        assert_eq!(&second.value, &Value::Bool(true));
+        let third = &ser.site.hardware_metrics[2].metrics[0];
+        assert_eq!(third.type_string.as_str(), "site.hardware.status");
+        assert_eq!(&third.value, &Value::Bool(true));
+        let fourth = &ser.site.hardware_metrics[2].metrics[1];
+        assert_eq!(fourth.type_string.as_str(), "site.hardware.pass.timing");
+        assert_eq!(&fourth.value, &Value::Long(3467));
     }
 }
