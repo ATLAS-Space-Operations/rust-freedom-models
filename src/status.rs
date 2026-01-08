@@ -83,7 +83,6 @@ mod tests {
     use super::*;
 
     #[test]
-    #[cfg(feature = "serde")]
     fn deserialize() {
         let json_value = r#"{
   "site": {

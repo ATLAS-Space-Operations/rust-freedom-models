@@ -235,7 +235,6 @@ mod tests {
     use super::*;
 
     #[test]
-    #[cfg(feature = "serde")]
     fn task_status_event() {
         let json = r#"
 {
@@ -267,7 +266,6 @@ mod tests {
     }
 
     #[test]
-    #[cfg(feature = "serde")]
     fn task_status_event_float_timestamp() {
         use time::macros::datetime;
 
