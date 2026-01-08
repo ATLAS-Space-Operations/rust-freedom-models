@@ -10,7 +10,7 @@ repository = "https://github.com/ATLAS-Space-Operations/rust-freedom-models"
 
 [dependencies]
 ipnet = { version = "2.11.0" }
-strum = { version = "0.25.0", features = ["derive"] }
+strum = { version = "0.27.2", features = ["derive"] }
 time = { version = "0.3.36" }
 url = { version = "2.5.0" }
 
