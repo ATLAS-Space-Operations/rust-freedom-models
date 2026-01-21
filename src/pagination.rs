@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use crate::Hateoas;
 
 use super::utils;
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use url::Url;
 
 /// A paginated response
