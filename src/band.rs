@@ -47,6 +47,7 @@ pub enum IoHardware {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct IoConfiguration {
     #[cfg_attr(feature = "serde", serde(default))]
     pub start_hex_pattern: Option<String>,
@@ -63,6 +64,7 @@ pub struct IoConfiguration {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub struct Band {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

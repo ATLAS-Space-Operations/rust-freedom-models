@@ -8,6 +8,7 @@ use time::OffsetDateTime;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub struct Location {
     pub longitude: f64,
     pub latitude: f64,
@@ -20,6 +21,7 @@ pub struct Location {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub struct Direction {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub timestamp: OffsetDateTime,
@@ -33,6 +35,7 @@ pub struct Direction {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub struct AzEl {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub start: OffsetDateTime,

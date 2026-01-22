@@ -15,6 +15,7 @@ use super::utils;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub struct UserPreferences {
     pub visibility_days: u32,
     pub min_elevation: f32,
@@ -33,6 +34,7 @@ pub struct UserPreferences {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub struct User {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

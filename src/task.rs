@@ -53,6 +53,7 @@ pub enum TaskStatusType {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct TaskStatus {
     #[cfg_attr(feature = "serde", serde(with = "crate::utils::timestamp"))]
     pub created: OffsetDateTime,
@@ -100,6 +101,7 @@ pub enum TaskType {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[non_exhaustive]
 pub struct Task {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,
@@ -159,6 +161,7 @@ impl Hateoas for Task {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[non_exhaustive]
 pub struct TaskStatusEvent {
     pub task_request_id: i32,
     pub task_request_uri: String,
@@ -179,6 +182,7 @@ impl TaskStatusEvent {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[non_exhaustive]
 pub struct TaskRequest {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

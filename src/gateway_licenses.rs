@@ -12,6 +12,7 @@ use time::OffsetDateTime;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct RegenerateResponse {
     pub account_id: u64,
     pub license_id: u32,
@@ -27,6 +28,7 @@ pub struct RegenerateResponse {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct Verify {
     pub license_key: String,
 }
@@ -38,6 +40,7 @@ pub struct Verify {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct VerifyResponse {
     pub valid: bool,
     pub license_id: Option<u32>,
@@ -59,6 +62,7 @@ pub struct VerifyResponse {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct View(pub Vec<ViewOne>);
 
 /// Representation of a single license associated with an account.
@@ -70,6 +74,7 @@ pub struct View(pub Vec<ViewOne>);
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct ViewOne {
     pub id: u32,
     pub account_id: u64,
