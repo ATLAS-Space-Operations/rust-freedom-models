@@ -16,7 +16,7 @@ use super::utils;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct SiteHardware {
     pub manual: bool,
     #[cfg_attr(feature = "serde", serde(default))]
@@ -49,7 +49,7 @@ pub struct SiteHardware {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Site {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,
@@ -90,7 +90,7 @@ impl Hateoas for Site {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct SiteConfiguration {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

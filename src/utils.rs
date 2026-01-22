@@ -19,7 +19,7 @@ where
 
 #[derive(Debug, Clone, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Embedded<T>
 where
     T: DeserializeOwned,
@@ -47,7 +47,7 @@ where
 
 #[derive(Debug, Clone, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[serde(rename_all = "camelCase")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Content<T>
 where
     T: DeserializeOwned + Hateoas,

@@ -15,7 +15,7 @@ use super::utils;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct TwoLineElement {
     pub line1: String,
     pub line2: String,
@@ -28,7 +28,7 @@ pub struct TwoLineElement {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Satellite {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

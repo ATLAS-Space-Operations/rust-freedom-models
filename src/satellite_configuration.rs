@@ -16,7 +16,7 @@ use super::utils;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct SatelliteConfiguration {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

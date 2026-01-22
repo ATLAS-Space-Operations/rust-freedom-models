@@ -17,7 +17,7 @@ use super::utils;
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
 #[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub enum BandType {
     Transmit,
     Receive,
@@ -30,7 +30,7 @@ pub enum BandType {
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
 #[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub enum IoHardware {
     Modem,
     Fep,
@@ -47,7 +47,7 @@ pub enum IoHardware {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct IoConfiguration {
     #[cfg_attr(feature = "serde", serde(default))]
     pub start_hex_pattern: Option<String>,
@@ -64,7 +64,7 @@ pub struct IoConfiguration {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Band {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

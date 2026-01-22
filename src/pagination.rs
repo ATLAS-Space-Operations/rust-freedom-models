@@ -9,7 +9,7 @@ use url::Url;
 /// A paginated response
 #[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Paginated<T>
 where
     T: DeserializeOwned,
@@ -39,7 +39,7 @@ where
 /// Page metadata included in a paginated stream
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[serde(rename_all = "camelCase")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Page {
     pub size: u32,
     pub total_elements: u32,

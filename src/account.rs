@@ -20,7 +20,7 @@ use super::utils;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct AccountCidr {
     pub name: String,
     pub cidr: Ipv4Net,
@@ -40,7 +40,7 @@ impl std::ops::Deref for AccountCidr {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Tier {
     pub tier: u32,
     pub price: f32,
@@ -68,7 +68,7 @@ impl Hateoas for Tier {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Account {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

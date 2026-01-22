@@ -11,7 +11,7 @@ use crate::Hateoas;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct ConfigurationDetails {
     pub name: String,
     pub description: String,
@@ -23,7 +23,7 @@ pub struct ConfigurationDetails {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct SatelliteDetails {
     pub name: String,
     pub norad: u32,
@@ -36,7 +36,7 @@ pub struct SatelliteDetails {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct Override {
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub created: OffsetDateTime,

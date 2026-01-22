@@ -12,7 +12,7 @@ use time::OffsetDateTime;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct RegenerateResponse {
     pub account_id: u64,
     pub license_id: u32,
@@ -28,7 +28,7 @@ pub struct RegenerateResponse {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct VerifyResponse {
     pub valid: bool,
     pub license_id: Option<u32>,
@@ -50,7 +50,7 @@ pub struct VerifyResponse {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct View(pub Vec<ViewOne>);
 
 /// Representation of a single license associated with an account.
@@ -62,7 +62,7 @@ pub struct View(pub Vec<ViewOne>);
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct ViewOne {
     pub id: u32,
     pub account_id: u64,
@@ -92,7 +92,7 @@ pub struct ViewOne {
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
 #[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub enum Status {
     /// License is active and can be used.
     Active,

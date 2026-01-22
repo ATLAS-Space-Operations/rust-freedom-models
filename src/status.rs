@@ -8,7 +8,7 @@ use time::OffsetDateTime;
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct PassMetric {
     pub site: SiteMetric,
 }
@@ -19,7 +19,7 @@ pub struct PassMetric {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct SiteMetric {
     pub task_id: i32,
     pub name: String,
@@ -38,7 +38,7 @@ pub struct SiteMetric {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct HardwareMetric {
     pub name: String,
     pub mfg: String,
@@ -54,7 +54,7 @@ pub struct HardwareMetric {
     serde(rename_all = "camelCase")
 )]
 #[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub struct ValueMetric {
     #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub type_string: String,
@@ -69,7 +69,7 @@ pub struct ValueMetric {
     serde(rename_all = "camelCase", tag = "valueType", content = "value")
 )]
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
-#[non_exhaustive]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
 pub enum Value {
     Bool(bool),
     Float(f64),
