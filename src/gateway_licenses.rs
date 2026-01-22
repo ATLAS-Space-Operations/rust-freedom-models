@@ -21,18 +21,6 @@ pub struct RegenerateResponse {
     pub license_key: String,
 }
 
-/// Request body used to verify a license key.
-#[cfg_attr(
-    feature = "serde",
-    derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "camelCase")
-)]
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[non_exhaustive]
-pub struct Verify {
-    pub license_key: String,
-}
-
 /// Response body returned from a license verification request.
 #[cfg_attr(
     feature = "serde",
@@ -236,18 +224,6 @@ mod tests {
             license_key: String::from("foobar"),
         };
         assert_eq!(regenerate, should_be);
-    }
-
-    #[test]
-    fn verify_request() {
-        let json = r#"{
-    "licenseKey": "foobar"
-}"#;
-        let verify: Verify = serde_json::from_str(json).unwrap();
-        let should_be = Verify {
-            license_key: String::from("foobar"),
-        };
-        assert_eq!(verify, should_be);
     }
 
     #[test]
