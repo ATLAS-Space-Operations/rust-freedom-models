@@ -2,8 +2,27 @@
 //!
 //! Contains models for interacting with Freedom Gateway licensing endpoints.
 
+use semver::Version;
 use strum::{AsRefStr, EnumString};
 use time::OffsetDateTime;
+
+/// Data model matching return type of `/api/gateway/latestVersion` endpoint
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "camelCase")
+)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
+pub struct LatestVersion {
+    /// The AWS ECR repository for Freedom Gateway
+    pub repository: String,
+    /// The semantic version of the latest tag of Freedom Gateway
+    pub latest_tag: Version,
+    #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
+    pub pushed_at: OffsetDateTime,
+    pub digest: String,
+}
 
 /// Response body returned when regenerating a license key.
 #[cfg_attr(

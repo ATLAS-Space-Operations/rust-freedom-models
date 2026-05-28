@@ -10,6 +10,7 @@ repository = "https://github.com/ATLAS-Space-Operations/rust-freedom-models"
 
 [dependencies]
 ipnet = { version = "2.11.0" }
+semver = { version = "1.0.28" }
 strum = { version = "0.28.0", features = ["derive"] }
 time = { version = "0.3.36" }
 url = { version = "2.5.0" }
@@ -23,5 +24,5 @@ serde_json = { version = "1.0.111" }
 time = { version = "0.3.36", features = ["macros"] }
 
 [features]
-serde = ["dep:serde", "dep:serde_with", "url/serde", "ipnet/json", "time/serde-human-readable"]
+serde = ["dep:serde", "dep:serde_with", "url/serde", "ipnet/json", "semver/serde", "time/serde-human-readable"]
 unstable = []
