@@ -13,6 +13,20 @@ use super::utils;
 #[cfg_attr(
     feature = "serde",
     derive(Serialize, Deserialize),
+    serde(rename_all = "camelCase")
+)]
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(not(feature = "unstable"), non_exhaustive)]
+pub struct PayloadStatus {
+    /// A boolean describing the availability of the Payload API
+    pub payload_enabled: bool,
+    /// If `payload_enabled == false`, this field will contain a short descriptor of why
+    pub reason: Option<String>,
+}
+
+#[cfg_attr(
+    feature = "serde",
+    derive(Serialize, Deserialize),
     serde(rename_all = "SCREAMING_SNAKE_CASE")
 )]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, AsRefStr, EnumString)]
