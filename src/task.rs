@@ -130,7 +130,7 @@ pub struct Task {
     pub internal_meta_data: Option<HashMap<String, String>>,
     /// Unavailable for user accounts
     #[cfg_attr(feature = "serde", serde(default))]
-    pub score: Option<u8>,
+    pub score: Option<u64>,
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
     pub start: OffsetDateTime,
     #[cfg_attr(feature = "serde", serde(with = "time::serde::iso8601"))]
